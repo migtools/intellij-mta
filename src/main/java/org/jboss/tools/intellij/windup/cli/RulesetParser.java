@@ -8,10 +8,11 @@ import org.jboss.tools.intellij.windup.model.WindupConfiguration.*;
 import org.jboss.tools.intellij.windup.model.WindupConfiguration;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+import java.net.URI;
 public class RulesetParser {
 
     public static List<Ruleset> parseRuleset(String resultFilePath) {
@@ -47,14 +48,18 @@ public class RulesetParser {
         return null;
     }
 
-    public static void parseRulesetForKantraConfig (WindupConfiguration configuration){
+    public static void parseRulesetForKantraConfig (WindupConfiguration configuration)  {
         if (configuration.getOptions() != null){
             String outputLocation = configuration.getRulesetResultLocation();
             configuration.setRulesets(parseRuleset(outputLocation));
 
             if(configuration.getSummary() != null){
                 configuration.getSummary().setRulesets(parseRuleset(outputLocation));
-                parseIncidents(configuration.getRulesets(), configuration);
+                try {
+                    parseIncidents(configuration.getRulesets(), configuration);
+                } catch (URISyntaxException e) {
+                    throw new RuntimeException(e);
+                }
                 // System.out.println("size of the Incident: ");
                 // System.out.println(configuration.getSummary().getIssues().size());
             }else {
@@ -66,7 +71,7 @@ public class RulesetParser {
 
     }
 
-    public static void parseIncidents (List<WindupConfiguration.Ruleset> rulesets, WindupConfiguration configuration) {
+    public static void parseIncidents (List<WindupConfiguration.Ruleset> rulesets, WindupConfiguration configuration) throws URISyntaxException {
         if (rulesets != null){
             for (WindupConfiguration.Ruleset ruleset: rulesets){
                 Map<String, Violation> violations = ruleset.getViolations();
@@ -81,13 +86,12 @@ public class RulesetParser {
                             ArrayList<String> inputs = (ArrayList<String>) configuration.getOptions().get("input");
                             String input = inputs.get(0);
                             String filePath =  incident.getUri();;
+                            URI uri = new URI(filePath);
                             incident.ruleId = entry.getKey();
-                            //System.out.println("-----------filePath-------------:  " + filePath);
-                            String absolutePath = filePath.substring(filePath.indexOf("/opt/input/source") + "/opt/input/source".length());
-                           // System.out.println("------------------ Absolute path -------------:  " + input + absolutePath);
-                            incident.file = input + absolutePath;
-                            incident.setUri(input + absolutePath);
-                           // System.out.println("File path of the incidents:  " + incident.file);
+                            String absolutePath = new File(uri).getAbsolutePath();
+                            incident.file = absolutePath;
+                            incident.setUri(absolutePath);
+                            //System.out.println("File path of the incidents:  " + incident.file);
                             incident.effort = String.valueOf(violation.getEffort());
                             incident.links = violation.getLinks();
                             incident.category = violation.getCategory();
