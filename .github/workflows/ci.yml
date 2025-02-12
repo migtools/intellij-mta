@@ -94,6 +94,12 @@ jobs:
       - name: Grant execute permissions to Gradle wrapper
         run: chmod +x ./gradlew
 
+      - name: Upgrade Gradle Wrapper
+        run: ./gradlew wrapper --gradle-version 7.0
+
+      - name: Check Gradle Version
+        run: ./gradlew --version
+
       - name: Build Plugin
         run: ./gradlew clean buildPlugin --stacktrace --info
 
