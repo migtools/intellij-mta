@@ -110,7 +110,7 @@ jobs:
         run: |
           if [ "${{ github.repository_owner }}" = "migtools" ]; then
             echo "Publishing to JetBrains Marketplace..."
-            ./gradlew publishPlugin -PintellijPublishToken=${{ secrets.JETBRAINS_MARKETPLACE_TOKEN }}
+            ./gradlew publishPlugin -PintellijPublishToken=${{secrets.JETBRAINS_MARKETPLACE_TOKEN}} --stacktrace --info 
           else
             echo "Skipping JetBrains Marketplace publishing since this is a fork."
           fi
