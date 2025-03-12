@@ -61,7 +61,7 @@ repositories {
 
 // Using the 'tasks' block to configure the runPluginVerifier task correctly
 tasks.withType(org.jetbrains.intellij.tasks.RunPluginVerifierTask) {
-    ideVersions = ['IC-2022.2', 'IC-2021.2', 'IC-2021.3'] // Adjusted IDE versions to available versions
+    ideVersions = ['IC-2024.1'] // Adjusted IDE versions to available versions
     downloadDir = "$buildDir/pluginVerifier/ides"
     verificationReportsDir = "$buildDir/pluginVerifier/reports"
     failureLevel = ['COMPATIBILITY_PROBLEMS', 'INVALID_PLUGIN'].collect {
