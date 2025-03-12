@@ -43,7 +43,7 @@ public class WindupToolWindow extends SimpleToolWindowPanel implements Disposabl
         this.init();
         this.cliRunner = new WindupCliRunner();
     }
-
+    @SuppressWarnings("removal")
     private void init() {
         WindupExplorerTreeStructure treeStructure = new WindupExplorerTreeStructure(modelService, vertxService);
         AsyncTreeModel asyncTreeModelModel = new AsyncTreeModel(treeStructure.getTreeModel(), true, project);

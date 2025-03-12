@@ -46,7 +46,7 @@ public class IssueDetailsView {
     }
 
     public void createToolWindowContent(@NotNull ToolWindow toolWindow) {
-        ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
+        ContentFactory contentFactory = ContentFactory.getInstance();
         Content content = contentFactory.createContent(myToolWindowPanel, "Issue Details", false);
         toolWindow.getContentManager().addContent(content);
     }
