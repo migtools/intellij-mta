@@ -17,6 +17,7 @@ public class ConfigurationFileTypeFactory implements FileTypeUsageSchemaDescript
     @NonNls static final String DOT_CONFIGURATION_EXTENSION = "." + CONFIGURATION_EXTENSION;
 
     @Override
+    @SuppressWarnings("removal")
     public boolean describes(@NotNull VirtualFile file) {
         return false;
     }

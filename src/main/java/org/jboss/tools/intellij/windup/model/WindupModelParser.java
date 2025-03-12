@@ -110,10 +110,10 @@ public class WindupModelParser {
                 summary.executable = (String)value;
             }
             else if ("hintCount".equals(key)) {
-                summary.hintCount = new Integer(String.valueOf(value));
+                summary.hintCount = Integer.parseInt(String.valueOf(value));
             }
             else if ("classificationCount".equals(key)) {
-                summary.classificationCount = new Integer(String.valueOf(value));
+                summary.classificationCount = Integer.parseInt(String.valueOf(value));
             }
             else if ("completeIssues".equals(key)) {
                 if (value instanceof JSONArray) {

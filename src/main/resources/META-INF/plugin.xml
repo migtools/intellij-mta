@@ -1,5 +1,5 @@
 <idea-plugin>
-    <id>org.jboss.tools.intellij.mta</id>
+    <id>org.jboss.tools.mta</id>
     <name>Migration Toolkit for Applications (MTA) by Red Hat</name>
     <vendor email="developers@redhat.com" url="http://www.redhat.com">Red-Hat</vendor>
 
@@ -10,7 +10,7 @@
       <p>Read more about MTA <a href="https://developers.redhat.com/products/mtr/download">here</a>.</p>
     ]]></description>
 
-    <idea-version since-build="222"/>
+    <idea-version since-build="241"/>
 
     <depends>com.intellij.modules.lang</depends>
     <depends>com.intellij.modules.java</depends>
