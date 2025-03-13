@@ -179,11 +179,19 @@
         },
         {
             "name": "rules",
-            "description": "User Rules Directory or filename containing custom rules.",
+            "description": "User Rules Directory/File, If ignored, enable-default-rulesets flag below.",
             "type": "Path",
             "ui-type": ["many", "file_or_directory", "text"],
             "placeholder": "No Directories Specified",
             "required": false,
+            "editable": true
+        },
+        {
+            "name": "enable-default-rulesets",
+            "description": "If set, default ruleset will be applied along with custom-rule. Note: Must specify rules if default rulesets are not enabled",
+            "type": "Boolean",
+            "ui-type": ["single"],
+            "required": true,
             "editable": true
         },
         {

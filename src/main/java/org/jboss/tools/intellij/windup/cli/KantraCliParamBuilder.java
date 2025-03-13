@@ -43,6 +43,11 @@ public class KantraCliParamBuilder {
            // params.add(String.join(" ", pathStrings));
         }
 
+        if (options.containsKey("enable-default-rulesets")){
+            params.add("--enable-default-rulesets=true");
+        }else {
+            params.add("--enable-default-rulesets=false");
+        }
 
         // overwrite
         if (options.containsKey("overwrite")) {
