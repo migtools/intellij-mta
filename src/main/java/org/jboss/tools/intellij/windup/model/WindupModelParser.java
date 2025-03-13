@@ -88,7 +88,7 @@ public class WindupModelParser {
             }
         }
     }
-
+    @SuppressWarnings("removal")
     private static void parseSummary(Map optionsObject, WindupConfiguration configuration, ModelService modelService) {
         AnalysisResultsSummary summary = new AnalysisResultsSummary(modelService);
         configuration.setSummary(summary);

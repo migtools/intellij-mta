@@ -44,7 +44,7 @@ public class IssueDetailsView {
             toolWindow.activate(() -> IssueDetailsView.getInstance(project).renderIssue(issue));
         }
     }
-
+    @SuppressWarnings("removal")
     public void createToolWindowContent(@NotNull ToolWindow toolWindow) {
         ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
         Content content = contentFactory.createContent(myToolWindowPanel, "Issue Details", false);
