@@ -32,6 +32,7 @@ public class ConfigurationNode extends WindupExplorerNode<WindupConfiguration> {
     }
 
     @Override
+    @SuppressWarnings("removal")
     protected void update(PresentationData presentation) {
         presentation.setPresentableText(this.getText());
         presentation.setIcon(IconLoader.getIcon("/icons/configuration/configuration.svg"));
