@@ -45,10 +45,6 @@ public class WindupCliProcessHandler extends OSProcessHandler {
     @Override
     public final void notifyTextAvailable(@NotNull String text, @NotNull final Key outputType) {
 
-//     if(i <= 10){
-//         System.out.println ("This is output from Kantra -----------------------> " + text);
-//     }
-//     i++;
         if (progressIndicator.isCanceled()) {
             destroyProcess();
             RunConfigurationAction.running = false;
@@ -61,22 +57,19 @@ public class WindupCliProcessHandler extends OSProcessHandler {
             }
             return;
         }
-        if (text.contains("rules")) {
-            progressIndicator.setText("Preparing analysis configuration...");
+        else if (text.contains("running source analysis")) {
+            progressIndicator.setText("Running source analysis...");
         }
-        else if (text.contains("Reading tags definitions")) {
-            progressIndicator.setText("Reading tags definitions...");
+        else if (text.contains("creating provider config")) {
+            progressIndicator.setText("Creating provider config...");
         }
-        else if (text.contains("Finished provider load")) {
-            progressIndicator.setText("Loading transformation paths...");
-        }
-        else if (text.contains("running source code analysis")) {
-            progressIndicator.setText("Running source code analysis...");
+        else if (text.contains("Parsing rules for analysis")) {
+            progressIndicator.setText("Parsing rules for analysis...");
             progressIndicator.setFraction(0.10);
         }
-        else if (text.contains("generating analysis log in file")) {
+        else if (text.contains("starting provider")) {
             int progress = calculateWorkDonePercentage(text);
-            progressIndicator.setText("Generating Analysis logs...");
+            progressIndicator.setText("Starting provider...");
            // progressIndicator.setText("Generating Analysis logs (" + progress + "%)");
             progressIndicator.setFraction(0.35);
         }
@@ -88,12 +81,11 @@ public class WindupCliProcessHandler extends OSProcessHandler {
             progressIndicator.setText("Generating Dependency logs...");
             progressIndicator.setFraction(0.75);
         }
-        else if (text.contains("generating static report")) {
+        else if (text.contains("writing analysis results to output")) {
             progressIndicator.setText("Generating static report...");
             progressIndicator.setFraction(0.95);
         }
         else if (text.contains("Static report created.")) {
-            System.out.println(text + "---------------------------------------: detected ");
             ProgressMonitor.ProgressMessage msg = new ProgressMonitor.ProgressMessage("complete", "", 20, "");
             progressMonitor.handleMessage(msg);
             progressIndicator.setFraction(1);
@@ -101,9 +93,9 @@ public class WindupCliProcessHandler extends OSProcessHandler {
             console.print("Analysis completed successfully. \n", ConsoleViewContentType.LOG_INFO_OUTPUT);
 
         }
-        else if (text.contains("Error")) {
-            System.out.println(text + "---------------------------------------: detected ");
+        else if (text.contains("Error:")) {
             ProgressMonitor.ProgressMessage msg = new ProgressMonitor.ProgressMessage("complete", "", 20, "");
+            WindupNotifier.notifyError("Error:" + text);
             progressMonitor.handleMessage(msg);
             progressIndicator.setFraction(1);
         }
